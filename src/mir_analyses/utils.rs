@@ -9,6 +9,7 @@ use rustc_data_structures::indexed_vec::Idx;
 use rustc::mir;
 use rustc::ty::{self, TyCtxt};
 use std::collections::HashSet;
+use log::debug;
 
 /// Check if the place `potential_prefix` is a prefix of `place`. For example:
 ///
@@ -17,12 +18,17 @@ use std::collections::HashSet;
 /// +   `is_prefix(x.f, x.f.g) == false`
 pub fn is_prefix(place: &mir::Place, potential_prefix: &mir::Place) -> bool {
     if place == potential_prefix {
+        // debug!("is_prefix called on {:#?} and {:#?}, result: true", place, potential_prefix);
         true
     } else {
         match place {
             mir::Place::Local(_) |
-            mir::Place::Static(_) => false,
+            mir::Place::Static(_) => {
+                // debug!("is_prefix called on {:#?} and {:#?}, result: false", place, potential_prefix);
+                false
+            },
             mir::Place::Projection(box mir::Projection { base, .. }) => {
+                // debug!("is_prefix called on {:#?} and {:#?}, result: continue recursion", place, potential_prefix);
                 is_prefix(base, potential_prefix)
             }
             mir::Place::Promoted(_) => {

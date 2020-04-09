@@ -26,8 +26,13 @@ csv = "1.0"
 serde = "1.0"
 serde_derive = "1.0"
 rustc-hash = "1.0.0"
-polonius = { git = "https://github.com/rust-lang-nursery/polonius.git" }
+polonius = { git = "https://github.com/rust-lang-nursery/polonius.git", tag="polonius-v0.3.0" }
 polonius-engine = "0.5.0"
+cute-log = "1.1.2"
 
 [dev-dependencies]
-compiletest_rs = "0.3"
+compiletest_rs = { git = "https://github.com/laumann/compiletest-rs", tag="v0.3.18" }
+
+[patch.crates-io]
+backtrace = { git = "https://github.com/rust-lang/backtrace-rs", tag = "0.3.11" }
+tester = { git = "https://github.com/messense/rustc-test", tag = "v0.5.0" }

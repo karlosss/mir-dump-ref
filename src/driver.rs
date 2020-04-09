@@ -12,6 +12,7 @@ extern crate rustc_errors;
 extern crate rustc_metadata;
 extern crate syntax_pos;
 extern crate syntax;
+extern crate cute_log;
 
 mod driver_utils;
 
@@ -149,7 +150,7 @@ impl<'a> CompilerCalls<'a> for DumperCompilerCalls {
 }
 
 pub fn main() {
-    env_logger::init();
+    cute_log::init();
 
     let exit_status = run(move || {
         let mut args: Vec<String> = env::args().collect();
